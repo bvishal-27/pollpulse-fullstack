@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-color: #f9fafb;
+    --text-color: #111827;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.08);
+  }
+
+  .dark {
+    --bg-color: #050505;
+    --text-color: #f9fafb;
+    --glass-bg: rgba(15, 15, 15, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.08);
+  }
+
+  * {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.3s ease;
+  }
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--glass-border);
+}
+
+/* Pro-level scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.3);
+  border-radius: 10px;
+}
