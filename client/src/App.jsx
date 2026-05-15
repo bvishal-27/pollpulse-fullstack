@@ -1,116 +1,204 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
-import { BarChart3, Globe2, ShieldCheck, ArrowRight, LogOut, Sun, Moon } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Navigate,
+} from "react-router-dom";
+import {
+  BarChart3,
+  Globe2,
+  ShieldCheck,
+  ArrowRight,
+  LogOut,
+  Zap,
+} from "lucide-react";
 
 // Page Imports
-import Dashboard from './pages/Dashboard';
-import CreatePoll from './pages/CreatePoll';
-import Auth from './pages/Auth';
-import VoteView from './pages/VoteView';
-import ResultsView from './pages/ResultsView';
+import Dashboard from "./pages/Dashboard";
+import CreatePoll from "./pages/CreatePoll";
+import Auth from "./pages/Auth";
+import VoteView from "./pages/VoteView";
+import ResultsView from "./pages/ResultsView";
 
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   return token ? children : <Navigate to="/login" />;
 };
 
 const Feature = ({ icon, title, desc }) => (
-  <div className="p-10 rounded-[32px] transition-all border duration-300
-    bg-white border-slate-200 shadow-sm 
-    dark:bg-[#1C1C1E] dark:border-white/5 dark:shadow-none
-    hover:shadow-xl hover:-translate-y-1">
-    <div className="mb-6 p-4 bg-blue-600/10 rounded-2xl w-fit text-blue-600">
+  <div className="dark-card p-12 text-center flex flex-col items-center group">
+    <div className="mb-8 p-5 bg-white/5 rounded-3xl text-[#0A84FF] transition-transform group-hover:scale-110">
       {icon}
     </div>
-    <h3 className="text-2xl font-bold mb-3 text-slate-900 dark:text-white tracking-tight">{title}</h3>
-    <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{desc}</p>
+    <h3 className="text-3xl font-black mb-4 tracking-tight text-white">
+      {title}
+    </h3>
+    <p className="text-[#86868B] font-bold leading-relaxed">{desc}</p>
   </div>
 );
 
 const Home = ({ isAuth }) => (
-  <>
-    <section className="relative pt-40 pb-20 px-6 overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-500/5 dark:bg-blue-500/10 blur-[120px] rounded-full -z-10" />
-      
-      <div className="max-w-5xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/10 bg-blue-500/5 text-blue-600 text-xs font-bold mb-8 uppercase tracking-widest">
-          Live Deployment
-        </div>
-        
-        <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-8 leading-[1.1] text-slate-900 dark:text-white">
-          Next-gen polls <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">for modern teams.</span>
-        </h1>
+  <div
+    className="min-h-screen"
+    style={{ background: "var(--bg-color)", color: "var(--text-color)" }}
+  >
+    {/* Deep Background Glows */}
+    <div className="absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-900/20 blur-[120px] rounded-full" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-900/20 blur-[100px] rounded-full" />
+    </div>
 
-        <p className="text-slate-500 dark:text-slate-400 text-xl max-w-2xl mb-12 mx-auto font-medium">
-          Beautiful, lightning-fast feedback loops. <br className="hidden md:block"/> Built for the speed of light.
-        </p>
-        
-        <div className="flex justify-center">
-          <Link to={isAuth ? "/dashboard" : "/register"} className="bg-blue-600 text-white px-10 py-5 rounded-full font-bold text-lg shadow-xl shadow-blue-500/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 group">
-            {isAuth ? 'Go to Dashboard' : 'Get Started Now'} 
-            <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
+    <section className="pt-52 pb-24 px-6 max-w-6xl mx-auto text-center">
+      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[#0A84FF] text-[10px] font-black mb-10 uppercase tracking-[0.2em]">
+        <Zap size={12} fill="currentColor" /> Pro Edition 2026
       </div>
+
+      <h1 className="text-7xl md:text-[100px] font-black tracking-tighter mb-10 leading-[0.9] text-white">
+        The art of <br />
+        <span className="text-[#0A84FF]">deciding together.</span>
+      </h1>
+
+      <p className="text-[#86868B] text-2xl md:text-3xl max-w-2xl mb-16 mx-auto font-black leading-tight">
+        PollPulse reimagines feedback. <br /> Minimalist, fast, and secure.
+      </p>
+
+      <Link
+        to={isAuth ? "/dashboard" : "/register"}
+        className="bg-white text-black px-16 py-7 rounded-full font-black text-2xl shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-4 mx-auto w-fit"
+      >
+        {isAuth ? "Enter Dashboard" : "Get Started Free"}
+        <ArrowRight size={28} />
+      </Link>
     </section>
 
-    <section className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-8">
-      <Feature icon={<BarChart3 />} title="Instant Analytics" desc="Watch votes populate with zero-latency charts and data." />
-      <Feature icon={<Globe2 />} title="Global Reach" desc="Distributed infrastructure ensures speed from any continent." />
-      <Feature icon={<ShieldCheck />} title="Bank-grade Security" desc="JWT sessions and encrypted payload delivery come standard." />
+    <section className="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-3 gap-12">
+      <Feature
+        icon={<BarChart3 size={40} />}
+        title="Live Insights"
+        desc="Visual data that updates the millisecond a vote is cast."
+      />
+      <Feature
+        icon={<Globe2 size={40} />}
+        title="Global Sync"
+        desc="Share polls instantly with links optimized for any platform."
+      />
+      <Feature
+        icon={<ShieldCheck size={40} />}
+        title="Privacy First"
+        desc="Encrypted anonymous voting that keeps your data yours."
+      />
     </section>
-  </>
+  </div>
 );
 
-function App() {
-  const [darkMode, setDarkMode] = useState(() => localStorage.getItem('theme') === 'dark');
+export default function App() {
+  const isAuth = !!localStorage.getItem("token");
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      return document.documentElement.classList.contains("dark")
+        ? "dark"
+        : "light";
+    }
+    return "light";
+  });
 
   useEffect(() => {
-    const html = window.document.documentElement;
-    if (darkMode) {
-      html.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
     } else {
-      html.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+      document.documentElement.classList.remove("dark");
     }
-  }, [darkMode]);
+  }, [theme]);
 
-  const isAuth = !!localStorage.getItem('token');
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   return (
     <Router>
-      <div className="min-h-screen transition-colors duration-500 bg-[#F5F5F7] dark:bg-black text-[#1D1D1F] dark:text-[#F5F5F7] antialiased">
-        
-        <nav className="fixed top-0 w-full z-50 backdrop-blur-xl bg-white/70 dark:bg-black/70 border-b border-slate-200 dark:border-white/10 py-4 px-6 md:px-12 flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white shadow-lg group-hover:rotate-6 transition-transform">P</div>
-            <h1 className="text-xl font-black tracking-tighter">PollPulse</h1>
+      <div className="min-h-screen bg-black">
+        <nav className="glass-nav py-5 px-6 md:px-16 flex justify-between items-center">
+          <Link to="/" className="flex items-center gap-4 group">
+            <div className="w-12 h-12 bg-[#0A84FF] rounded-2xl flex items-center justify-center font-bold text-white shadow-lg transition-transform group-hover:scale-110">
+              P
+            </div>
+            <h1 className="text-3xl font-black tracking-tighter text-white">
+              PollPulse
+            </h1>
           </Link>
-          
-          <div className="flex items-center gap-4 md:gap-6">
-            {/* ENABLED TOGGLE BUTTON */}
-            <button 
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-2.5 rounded-2xl bg-slate-200/50 dark:bg-white/10 text-slate-900 dark:text-white transition-all hover:scale-110 active:scale-95"
-              aria-label="Toggle Theme"
+
+          <div className="flex items-center gap-8">
+            <button
+              className="theme-toggle-btn mr-4"
+              aria-label="Toggle dark/light mode"
+              onClick={toggleTheme}
             >
-              {darkMode ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-slate-600" />}
+              {theme === "dark" ? (
+                <svg
+                  width="22"
+                  height="22"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  width="22"
+                  height="22"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <circle cx="12" cy="12" r="5" strokeWidth="2" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 1v2m0 18v2m11-11h-2M3 12H1m16.95 6.95l-1.41-1.41M6.46 6.46L5.05 5.05m12.02 0l-1.41 1.41M6.46 17.54l-1.41 1.41"
+                  />
+                </svg>
+              )}
             </button>
-            
             {isAuth ? (
-              <div className="flex items-center gap-4 md:gap-6">
-                <Link to="/dashboard" className="text-sm font-bold opacity-60 hover:opacity-100 transition-opacity uppercase tracking-widest hidden sm:block">Dashboard</Link>
-                <button onClick={() => { localStorage.clear(); window.location.href = '/'; }} className="text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 p-2 rounded-xl transition-all">
-                  <LogOut size={20} />
+              <div className="flex items-center gap-8">
+                <Link
+                  to="/dashboard"
+                  className="text-xs font-black text-white/50 hover:text-white uppercase tracking-widest"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={() => {
+                    localStorage.clear();
+                    window.location.href = "/";
+                  }}
+                  className="text-red-500 bg-red-500/10 p-3 rounded-xl transition-all"
+                >
+                  <LogOut size={24} />
                 </button>
               </div>
             ) : (
-              <div className="flex items-center gap-4 md:gap-8">
-                <Link to="/login" className="text-sm font-bold opacity-60 hover:opacity-100 transition-opacity uppercase tracking-widest hidden sm:block">Login</Link>
-                <Link to="/register" className="bg-slate-900 dark:bg-blue-600 text-white px-6 md:px-8 py-2.5 rounded-2xl text-sm font-black shadow-lg hover:opacity-90 transition-all">
-                  Get Started
+              <div className="flex items-center gap-8">
+                <Link
+                  to="/login"
+                  className="text-xs font-black text-white/50 hover:text-white uppercase tracking-widest"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="bg-white text-black px-8 py-3 rounded-full text-xs font-black hover:opacity-80 transition-all shadow-xl"
+                >
+                  Join Now
                 </Link>
               </div>
             )}
@@ -121,18 +209,26 @@ function App() {
           <Route path="/" element={<Home isAuth={isAuth} />} />
           <Route path="/login" element={<Auth type="login" />} />
           <Route path="/register" element={<Auth type="register" />} />
-          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          <Route path="/create-poll" element={<ProtectedRoute><CreatePoll /></ProtectedRoute>} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/create-poll"
+            element={
+              <ProtectedRoute>
+                <CreatePoll />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/vote/:id" element={<VoteView />} />
           <Route path="/results/:id" element={<ResultsView />} />
         </Routes>
-
-        <footer className="py-20 text-center opacity-30 text-[10px] font-black tracking-[0.3em] uppercase">
-          &copy; 2026 PollPulse Technologies.
-        </footer>
       </div>
     </Router>
   );
 }
-
-export default App;

@@ -1,19 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: 'class', // Add this line
+  darkMode: 'class',
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      colors: {
-        background: {
-          light: "#ffffff",
-          dark: "#000000",
-        },
-        surface: {
-          light: "rgba(0, 0, 0, 0.05)",
-          dark: "rgba(255, 255, 255, 0.05)",
-        },
-        accent: "#0071e3",
+      animation: {
+        'fade-in': 'fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        }
       },
     },
   },
